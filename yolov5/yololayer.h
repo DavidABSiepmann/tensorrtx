@@ -6,6 +6,18 @@
 #include <NvInfer.h>
 #include "macros.h"
 
+#ifndef CUSTOM_CLASS_NUM
+#define CUSTOM_CLASS_NUM 80
+#endif
+
+#ifndef CUSTOM_INPUT_H
+#define CUSTOM_INPUT_H 640
+#endif
+
+#ifndef CUSTOM_INPUT_W
+#define CUSTOM_INPUT_W 640
+#endif
+
 namespace Yolo
 {
     static constexpr int CHECK_COUNT = 3;
@@ -17,9 +29,9 @@ namespace Yolo
         float anchors[CHECK_COUNT * 2];
     };
     static constexpr int MAX_OUTPUT_BBOX_COUNT = 1000;
-    static constexpr int CLASS_NUM = 80;
-    static constexpr int INPUT_H = 640;  // yolov5's input height and width must be divisible by 32.
-    static constexpr int INPUT_W = 640;
+    static constexpr int CLASS_NUM = CUSTOM_CLASS_NUM;
+    static constexpr int INPUT_H = CUSTOM_INPUT_H;  // yolov5's input height and width must be divisible by 32.
+    static constexpr int INPUT_W = CUSTOM_INPUT_W;
 
     static constexpr int LOCATIONS = 4;
     struct alignas(float) Detection {
