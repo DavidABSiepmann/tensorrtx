@@ -12,7 +12,9 @@
 #define DEVICE 0  // GPU id
 #define NMS_THRESH 0.4
 #define CONF_THRESH 0.5
+#ifndef BATCH_SIZE
 #define BATCH_SIZE 1
+#endif
 #define MAX_IMAGE_INPUT_SIZE_THRESH 3000 * 3000 // ensure it exceed the maximum size in the input images !
 
 // stuff we know about the network and the input/output blobs
@@ -297,6 +299,11 @@ bool parse_args(int argc, char** argv, std::string& wts, std::string& engine, bo
 
 int main(int argc, char** argv) {
     cudaSetDevice(DEVICE);
+
+    std::cout << "Batchsize: " << std::to_string(BATCH_SIZE) << std::endl;
+    std::cout << "INPUT_H: " << std::to_string(INPUT_H) << std::endl;
+    std::cout << "INPUT_W: " << std::to_string(INPUT_W) << std::endl;
+    std::cout << "CLASS_NUM: " << std::to_string(CLASS_NUM) << std::endl;
 
     std::string wts_name = "";
     std::string engine_name = "";

@@ -57,6 +57,21 @@ Currently, we support yolov5 v1.0, v2.0, v3.0, v3.1, v4.0, v5.0, v6.0, v6.2, v7.
 - BBox confidence thresh in yolov5.cpp
 - Batch size in yolov5.cpp
 
+### Added Fixes
+
+Added variables for change via external `CMakeLists.txt` for parameters:
+
+- BATCH_SIZE
+- CLASS_NUM
+- INPUT_H
+- INPUT_W
+
+Usage:
+
+```bash
+cmake -DBATCH_SIZE=4 -DCLASS_NUM=7 -DINPUT_H=640 -DINPUT_W=360 ..
+```
+
 ## Build and Run
 
 ### Detection
@@ -80,7 +95,7 @@ cd {tensorrtx}/yolov5/
 mkdir build
 cd build
 cp {ultralytics}/yolov5/yolov5s.wts {tensorrtx}/yolov5/build
-cmake ..
+cmake .. // or -> cmake -DBATCH_SIZE=[custom value] -DCLASS_NUM=[custom value] -DINPUT_H=[custom value] -DINPUT_W=[custom value] ..
 make
 sudo ./yolov5_det -s [.wts] [.engine] [n/s/m/l/x/n6/s6/m6/l6/x6 or c/c6 gd gw]  // serialize model to plan file
 sudo ./yolov5_det -d [.engine] [image folder]  // deserialize and run inference, the images in [image folder] will be processed.
