@@ -5,9 +5,33 @@
  * please re-compile and re-serialize the tensorrt model.
  * --------------------------------------------------------*/
 
+#ifndef CUSTOM_CLASS_NUM
+#define CUSTOM_CLASS_NUM 80
+#endif
+
+#ifndef CUSTOM_INPUT_H
+#define CUSTOM_INPUT_H 640
+#endif
+
+#ifndef CUSTOM_INPUT_W
+#define CUSTOM_INPUT_W 640
+#endif
+
 // For INT8, you need prepare the calibration dataset, please refer to
 // https://github.com/wang-xinyu/tensorrtx/tree/master/yolov5#int8-quantization
+#ifndef PRECISION
 #define USE_FP16  // set USE_INT8 or USE_FP16 or USE_FP32
+#else
+#if PRECISION == 8
+#define USE_INT8
+#elif PRECISION == 16
+#define USE_FP16
+#elif PRECISION == 32
+#define USE_FP32
+#else
+#define USE_INT16
+#endif
+#endif
 
 // These are used to define input/output tensor names,
 // you can set them to whatever you want.
@@ -15,7 +39,7 @@ const static char* kInputTensorName = "data";
 const static char* kOutputTensorName = "prob";
 
 // Detection model and Segmentation model' number of classes
-constexpr static int kNumClass = 80;
+constexpr static int kNumClass = CUSTOM_CLASS_NUM;
 
 // Classfication model's number of classes
 constexpr static int kClsNumClass = 1000;
@@ -23,8 +47,8 @@ constexpr static int kClsNumClass = 1000;
 constexpr static int kBatchSize = 1;
 
 // Yolo's input width and height must by divisible by 32
-constexpr static int kInputH = 640;
-constexpr static int kInputW = 640;
+constexpr static int kInputH = CUSTOM_INPUT_H;
+constexpr static int kInputW = CUSTOM_INPUT_W;
 
 // Classfication model's input shape
 constexpr static int kClsInputH = 224;
